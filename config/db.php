@@ -8,7 +8,7 @@ try{
     $username = 'root';
     $password = ''; 
     
-    $database = new PDO($dsn, $username, $password);
+    $db = new PDO($dsn, $username, $password);
 }
 
 catch(Exception $message){

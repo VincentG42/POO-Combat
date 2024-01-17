@@ -1,0 +1,11 @@
+#heroes_list img{
+   max-height:10em ;
+   max-width: auto;
+}
+
+
+#index_body{
+    background-image: url(../img/Icecrown_Citadel_Art_Peter_Lee_1.webp);
+    background-size: cover;
+    background-position: top;
+}
