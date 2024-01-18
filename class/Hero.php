@@ -9,6 +9,8 @@ class Hero{
 
     private int $healthPoint;
 
+    private string $classe;
+
 
     public function __construct(string $name){
         $this -> name = $name;          
@@ -25,6 +27,10 @@ class Hero{
     public function setHealthPoint(int $healthPoint){
          $this-> healthPoint = $healthPoint;
     }
+
+    public function setClasse( string $classe){
+        $this->classe = $classe;
+}
     
     public function getId() : int{
         return $this-> id;
@@ -36,6 +42,10 @@ class Hero{
 
     public function getHealthPoint() : int {
         return $this-> healthPoint;
+    }
+
+    public function getClasse(){
+        
     }
 
     public function hit(Monster $monster): int{

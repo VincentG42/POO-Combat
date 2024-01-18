@@ -1,5 +1,6 @@
+/* index */
 #heroes_list img{
-   max-height:10em ;
+   max-height:8em ;
    max-width: auto;
 }
 
@@ -7,5 +8,52 @@
 #index_body{
     background-image: url(../img/Icecrown_Citadel_Art_Peter_Lee_1.webp);
     background-size: cover;
-    background-position: top;
+    background-position: top -20%;
+}
+
+#form_card form{
+    color:#001a22;
+    background-color: #3fabc685;
+    min-height: 20em;
+    border-radius: 15px;
+    border:#001a22 2px solid;
+    box-shadow:2px 0px 47px 10px #001a22 ;
+}
+
+
+#heroes_list{
+    border :2 px #001a22 solid
+}
+
+.hero_card{
+    color:#001a22;
+    width: 10em;
+    background-color: #3fabc6a8;
+    min-height: 20em;
+    border-radius: 15px;
+    border:#001a22 2px solid;
+    box-shadow:2px 0px 47px 10px #337569 ;
+}
+
+
+
+
+/* fight */
+
+
+#fight_body{
+    background-image: url(../img/icc-background.webp);
+    background-size:cover ;
+    background-position: top -20%;
+}
+
+#sylvanas_fight{
+    transform: scaleX(-1);
+}
+
+#fight_sequence{
+    border-radius: 15px;
+    border:#001a22 2px solid;
+    background-color: #001a22;
+    color: #d7fafe;
 }

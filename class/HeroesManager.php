@@ -15,7 +15,7 @@ class HeroesManager{
 
 // Modifier un héros.
     public function update( Hero $hero){
-       var_dump($hero);
+    //    var_dump($hero);
         $request = $this->db->prepare("UPDATE heroes SET health_point = :health_point WHERE id = :id");
         $request->execute(['id' => $hero-> getId(),
                             'health_point' => $hero-> getHealthPoint()
