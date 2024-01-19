@@ -11,19 +11,13 @@ $currentHero = $heroesManager->find(intval($_POST['heroID']));
 // var_dump('hello');
 
 $fightManager = new FightsManager;
-$currentMonster = $fightManager -> createMonster ('Lich King');
+$currentMonster = $fightManager -> createMonster ();
 
 $fightResults = $fightManager-> fight($currentHero, $currentMonster);
 
 $heroesManager -> update($currentHero);
 
 
-
-// var_dump($currentHero);
-// var_dump($currentMonster);
-
-
-// var_dump($fightResults)
 
 
 ?>
@@ -41,19 +35,37 @@ $heroesManager -> update($currentHero);
    
 
 <section class="container my-5 d-flex flex-column align-items-center justify-content-center">
-    <div class="row justify-content-around">
-        <img src="./img/sylvanas.png" alt=" sylvanas" class="col-2" id="sylvanas_fight">
-        <img src="./img/arthas-lich-king.png" alt="lich king" class="col-5">
+    <div class="row justify-content-around" class="fighters_img">
+        <img  id="fighter_user" class="col-3" <?php if($currentHero->getClass()=== 1){
+                        echo 'src="./img/arthas-lich-king.png" alt="Lich King"';
+                    }else if($currentHero->getClass()=== 2){
+                        echo ' src="./img/sylvanas.png" alt="sylvanas"';
+                    }else{
+                        echo 'src="./img/illidan.png"';} ?> >
+
+        <img  id="fighter_monster" class="col-3" <?php if($currentMonster->getClass()=== 1){
+                        echo 'src="./img/eds_rogue.png" alt="Lich King"';
+                    }else if($currentHero->getClass()=== 2){
+                        echo ' src="./img/eds_sorcerer.png" alt="sylvanas"';
+                    }else{
+                        echo 'src="./img/tauren.png"';} ?> >
+        
     </div>
     <div class="mt-5 text-center w-50 row justify-content-center py-2" id="fight_sequence">
         <?php for ($i= 0; $i<count($fightResults); $i +=1){?>
-                <p><?php if($i%2 == 0) {echo "<span class='fw-bold'>".$currentMonster-> getName()."</span> hits <span class='fw-bold'>". $currentHero -> getName(). "</span> for ".$fightResults[$i]." Hp";
-                }else{echo "<span class='fw-bold'>".$currentHero-> getName()."</span> hits <span class='fw-bold'>". $currentMonster -> getName(). " </span> for ".$fightResults[$i]. " HP";} ?></p>
+                <p>
+                    <?php if($i%2 == 0 && $fightResults[$i] <= 30) {echo "<span class='fw-bold'>".$currentMonster-> getName()."</span> hits <span class='fw-bold'>". ucfirst($currentHero -> getName()). "</span> for ".$fightResults[$i]." Hp";
+                        } else if (($i%2 == 0 && $fightResults[$i]> 30)) {echo "<span class='fw-bold'>".$currentMonster-> getName()."</span> hits <span class='fw-bold'>".ucfirst($currentHero -> getName()). "</span> for <span class='crit'> ".$fightResults[$i]." (crit) </span> Hp";
+                        } else if($i%2 != 0 && $fightResults[$i] <= 30) {echo "<span class='fw-bold'>".ucfirst($currentHero -> getName())."</span> hits <span class='fw-bold'>". $currentMonster -> getName(). " </span> for ".$fightResults[$i]. " HP";
+                        } else {echo "<span class='fw-bold'>".ucfirst($currentHero -> getName())."</span> hits <span class='fw-bold'>". $currentMonster -> getName(). "</span> for <span class='crit'> ".$fightResults[$i]." (crit) </span> Hp";} 
+                    ?>
+                       
+            </p>
 
 
         <?php } ?>    
-                <p><?php if($currentHero-> getHealthPoint()<=0){ echo $currentHero->getName()." dies AH AH AH AH ";
-                }else{ echo $currentMonster->getName()." dies. Congrats!!!!";} ?></p>
+                <p><?php if($currentHero-> getHealthPoint()<=0){ echo "<span class='fw-bold'>". ucfirst($currentHero -> getName())."</span> dies AH AH AH AH ";
+                }else{ echo "<span class='fw-bold'>" .$currentMonster->getName()."</span> dies. Congrats!!!!";} ?></p>
     </div>
 </section>
 

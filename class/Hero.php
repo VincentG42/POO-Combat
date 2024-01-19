@@ -9,11 +9,13 @@ class Hero{
 
     private int $healthPoint;
 
-    private string $classe;
+    private int $class;
 
 
-    public function __construct(string $name){
-        $this -> name = $name;          
+
+    public function __construct(string $name, int $class){
+        $this -> name = $name;        
+        $this-> class = $class;  
     }   
     
     public function setId( int $id){
@@ -28,8 +30,8 @@ class Hero{
          $this-> healthPoint = $healthPoint;
     }
 
-    public function setClasse( string $classe){
-        $this->classe = $classe;
+    public function setClass( string $classe){
+        $this->class = $classe;
 }
     
     public function getId() : int{
@@ -44,25 +46,35 @@ class Hero{
         return $this-> healthPoint;
     }
 
-    public function getClasse(){
-        
+    public function getClass() : int {
+        return $this->  class;
     }
 
     public function hit(Monster $monster): int{
-        $damage = rand(0,50);
+        if($this-> getclass() === 1 && $monster-> getclass() === 1){
+            $damage = rand(10,30);
+        }else if($this-> getclass() === 1 && $monster-> getclass() === 2){
+            $damage = rand(15,40);
+        }else if($this-> getclass() === 1 && $monster-> getclass() === 3){
+            $damage = rand(5,20);
+        }else if($this-> getclass() === 2 && $monster-> getclass() === 1){
+            $damage = rand(15,40);
+        }else if($this-> getclass() === 2 && $monster-> getclass() === 2){
+            $damage = rand(10,30);
+        }else if($this-> getclass() === 2 && $monster-> getclass() === 3){
+            $damage = rand(5,20);
+        }else if($this-> getclass() === 3 && $monster-> getclass() === 1){
+            $damage = rand(5,20);
+        }else if($this-> getclass() === 3 && $monster-> getclass() === 2){
+            $damage = rand(15,40);
+        }else if($this-> getclass() === 3 && $monster-> getclass() === 3){
+            $damage = rand(10,30);
         
         $monster -> setHealthPoint($monster -> getHealthPoint()- $damage);
 
+        }
         return $damage;
     }
-
-    
-
-
-
-
-
 }
-
 
 ?>

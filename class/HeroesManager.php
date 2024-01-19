@@ -1,7 +1,5 @@
 <?php
 
-require_once('./config/autoload.php');
-
 class HeroesManager{
 
     private PDO $db;
@@ -30,12 +28,14 @@ class HeroesManager{
         
         $hero-> setHealthPoint(100);
         
-        $request = $this->db->prepare("INSERT INTO heroes (name, health_point) VALUES (:name, :health_point)");
+        $request = $this->db->prepare("INSERT INTO heroes (name, health_point, class) VALUES (:name, :health_point, :class)");
         $request->execute(['name' => $hero-> getname(),
-                            'health_point' => $hero-> getHealthPoint()
+                            'health_point' => $hero-> getHealthPoint(),
+                            'class' => $hero-> getClass()
         ]);
         $id = $this->db->lastInsertId();
         $hero-> setID($id);
+
 
     }
 // Sélectionner un héros.
@@ -44,7 +44,7 @@ class HeroesManager{
         $request = $this->db->query("SELECT * FROM heroes WHERE heroes.id='$id' ");
         $newHero = $request->fetch();
         // var_dump($newHero);
-        $hero = new Hero($newHero['name']);
+        $hero = new Hero($newHero['name'], $newHero['class']);
         $hero-> setHealthPoint($newHero['health_point']);
         $hero-> setId($newHero['id']);
         return $hero;
@@ -53,20 +53,21 @@ class HeroesManager{
 // Récupérer une liste de plusieurs héros vivants.
     public function findAllAlive(){
         
-        $request = $this->db->query('SELECT * FROM heroes WHERE health_point>0 ');
+        $request = $this->db->query('SELECT * FROM heroes WHERE health_point > 0 ');
         $allHeroesDb = $request->fetchAll();
         // var_dump($allHeroesDb);
         foreach ($allHeroesDb as $hero){
-            $newHero = new Hero($hero['name']);
+            $newHero = new Hero($hero['name'],  $hero['class']);
             $newHero-> setHealthPoint($hero['health_point']);
             $newHero-> setId($hero['id']);
+            $newHero-> setClass($hero['class']);
             $this->allHeroesAlive[] = $newHero;
         }
 
         return $this-> allHeroesAlive;
 
     }
-// Savoir si un héros existe.
+
 }
 
 ?>

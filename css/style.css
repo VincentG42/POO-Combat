@@ -1,9 +1,12 @@
 /* index */
 #heroes_list img{
    max-height:8em ;
-   max-width: auto;
+   max-width: 100%;
 }
 
+h1{
+    color : #d7fafe ;
+}
 
 #index_body{
     background-image: url(../img/Icecrown_Citadel_Art_Peter_Lee_1.webp);
@@ -47,13 +50,20 @@
     background-position: top -20%;
 }
 
-#sylvanas_fight{
-    transform: scaleX(-1);
+#fighter_user{
+   transform: scaleX(-1);
 }
+#fighter_monster{
+    transform: scaleX(-1);
+ }
 
 #fight_sequence{
     border-radius: 15px;
     border:#001a22 2px solid;
     background-color: #001a22;
     color: #d7fafe;
+}
+
+.crit{
+    color: red;
 }

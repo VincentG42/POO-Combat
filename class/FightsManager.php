@@ -5,8 +5,8 @@ class FightsManager{
 //     Créer automatiquement un monstre.
 
 
-    public function createMonster($name){
-        $monster= new Monster($name);
+    public function createMonster(){
+        $monster= new Monster();
         $monster -> setHealthPoint(100);
 
         return $monster;
@@ -23,6 +23,7 @@ class FightsManager{
                 
                 if ($i%2 == 0){
                      $fightSequence[$i] =  $monster ->hit($hero);
+                     
                     } else{
                         $fightSequence[$i] =  $hero ->hit($monster);
                     }
