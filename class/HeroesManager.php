@@ -25,13 +25,14 @@ class HeroesManager{
 //Enregistrer un nouveau héros en base de données.
 
     public function add(Hero $hero){
+
         
         $hero-> setHealthPoint(100);
         
         $request = $this->db->prepare("INSERT INTO heroes (name, health_point, class) VALUES (:name, :health_point, :class)");
         $request->execute(['name' => $hero-> getname(),
                             'health_point' => $hero-> getHealthPoint(),
-                            'class' => $hero-> getClass()
+                            'class' => $hero ->getClass()
         ]);
         $id = $this->db->lastInsertId();
         $hero-> setID($id);
@@ -44,7 +45,12 @@ class HeroesManager{
         $request = $this->db->query("SELECT * FROM heroes WHERE heroes.id='$id' ");
         $newHero = $request->fetch();
         // var_dump($newHero);
-        $hero = new Hero($newHero['name'], $newHero['class']);
+        $return_value =match ($newHero['class']){
+            1 => new DeathKnight($newHero['name']),
+            2 => new Archer($newHero['name']),
+            3 => new Rogue($newHero['name']),
+        };
+        $hero = $return_value;
         $hero-> setHealthPoint($newHero['health_point']);
         $hero-> setId($newHero['id']);
         return $hero;
@@ -57,10 +63,16 @@ class HeroesManager{
         $allHeroesDb = $request->fetchAll();
         // var_dump($allHeroesDb);
         foreach ($allHeroesDb as $hero){
-            $newHero = new Hero($hero['name'],  $hero['class']);
+            $childClass =match ($hero['class']){
+                1 => new DeathKnight($hero['name']),
+                2 => new Archer($hero['name']),
+                3 => new Rogue($hero['name']),
+            };
+            
+            $newHero = $childClass;
+
             $newHero-> setHealthPoint($hero['health_point']);
             $newHero-> setId($hero['id']);
-            $newHero-> setClass($hero['class']);
             $this->allHeroesAlive[] = $newHero;
         }
 

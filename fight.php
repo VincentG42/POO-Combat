@@ -9,9 +9,11 @@ $heroesManager = new HeroesManager($db) ;
 
 $currentHero = $heroesManager->find(intval($_POST['heroID']));
 // var_dump('hello');
+// var_dump($currentHero);
 
 $fightManager = new FightsManager;
 $currentMonster = $fightManager -> createMonster ();
+// var_dump($currentMonster);
 
 $fightResults = $fightManager-> fight($currentHero, $currentMonster);
 
@@ -40,15 +42,15 @@ $heroesManager -> update($currentHero);
                         echo 'src="./img/arthas-lich-king.png" alt="Lich King"';
                     }else if($currentHero->getClass()=== 2){
                         echo ' src="./img/sylvanas.png" alt="sylvanas"';
-                    }else{
+                    }else if($currentHero->getClass()=== 3){
                         echo 'src="./img/illidan.png"';} ?> >
 
         <img  id="fighter_monster" class="col-3" <?php if($currentMonster->getClass()=== 1){
-                        echo 'src="./img/eds_rogue.png" alt="Lich King"';
-                    }else if($currentHero->getClass()=== 2){
-                        echo ' src="./img/eds_sorcerer.png" alt="sylvanas"';
-                    }else{
-                        echo 'src="./img/tauren.png"';} ?> >
+                        echo 'src="./img/eds_rogue.png" alt="Rogue BloodElf"';
+                    }else if($currentMonster->getClass()=== 2){
+                        echo ' src="./img/eds_sorcerer.png" alt="BloodElf Sorcerer"';
+                    }elseif($currentMonster->getClass()=== 3){
+                        echo 'src="./img/tauren.png" alt="Tauren"';} ?> >
         
     </div>
     <div class="mt-5 text-center w-50 row justify-content-center py-2" id="fight_sequence">
@@ -64,7 +66,7 @@ $heroesManager -> update($currentHero);
 
 
         <?php } ?>    
-                <p><?php if($currentHero-> getHealthPoint()<=0){ echo "<span class='fw-bold'>". ucfirst($currentHero -> getName())."</span> dies AH AH AH AH ";
+                <p><?php if($currentHero-> getHealthPoint()<=0){ echo "<span class='fw-bold'>". ucfirst($currentHero -> getName())."</span> dies AH! AH! AH! AH! ";
                 }else{ echo "<span class='fw-bold'>" .$currentMonster->getName()."</span> dies. Congrats!!!!";} ?></p>
     </div>
 </section>

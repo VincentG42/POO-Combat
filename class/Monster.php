@@ -14,7 +14,9 @@ class Monster{
             $this-> name = "Rogue BloodElf";
           } else if($this-> class ===2){
             $this-> name = "BloodElf Sorcerer";
-          } $this -> name = " Tauren Drood";
+          } else if($this-> class === 3){
+             $this -> name = " Tauren Drood";
+          }
     }
 
     public function setName( string $name){
