@@ -7,7 +7,7 @@ $heroesManager =new HeroesManager($db) ;
 if(isset($_POST['name']) && !empty($_POST['name'])
 && (isset($_POST['class']) && !empty($_POST['class']))){
 
-$return_value =match ($_POST['class']){
+$return_value = match ($_POST['class']){
     '1' => new DeathKnight($_POST['name']),
     '2' => new Archer($_POST['name']),
     '3' => new Rogue($_POST['name']),

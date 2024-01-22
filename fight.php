@@ -8,12 +8,10 @@ $heroesManager = new HeroesManager($db) ;
 
 
 $currentHero = $heroesManager->find(intval($_POST['heroID']));
-// var_dump('hello');
-// var_dump($currentHero);
-
+ 
 $fightManager = new FightsManager;
 $currentMonster = $fightManager -> createMonster ();
-// var_dump($currentMonster);
+
 
 $fightResults = $fightManager-> fight($currentHero, $currentMonster);
 

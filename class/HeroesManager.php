@@ -25,7 +25,6 @@ class HeroesManager{
 //Enregistrer un nouveau héros en base de données.
 
     public function add(Hero $hero){
-
         
         $hero-> setHealthPoint(100);
         
@@ -36,16 +35,15 @@ class HeroesManager{
         ]);
         $id = $this->db->lastInsertId();
         $hero-> setID($id);
-
-
     }
+
 // Sélectionner un héros.
 
     public function find($id){
         $request = $this->db->query("SELECT * FROM heroes WHERE heroes.id='$id' ");
         $newHero = $request->fetch();
         // var_dump($newHero);
-        $return_value =match ($newHero['class']){
+        $return_value = match ($newHero['class']){
             1 => new DeathKnight($newHero['name']),
             2 => new Archer($newHero['name']),
             3 => new Rogue($newHero['name']),
@@ -56,14 +54,16 @@ class HeroesManager{
         return $hero;
 
     }
+
 // Récupérer une liste de plusieurs héros vivants.
+
     public function findAllAlive(){
         
         $request = $this->db->query('SELECT * FROM heroes WHERE health_point > 0 ');
         $allHeroesDb = $request->fetchAll();
         // var_dump($allHeroesDb);
         foreach ($allHeroesDb as $hero){
-            $childClass =match ($hero['class']){
+            $childClass = match ($hero['class']){
                 1 => new DeathKnight($hero['name']),
                 2 => new Archer($hero['name']),
                 3 => new Rogue($hero['name']),
