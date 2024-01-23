@@ -3,14 +3,18 @@ require_once('./config/db.php');
 require_once('./config/autoload.php');
 
 
+
 $heroesManager = new HeroesManager($db) ;
 // var_dump($heroesManager);
 
 
 $currentHero = $heroesManager->find(intval($_POST['heroID']));
+$_SESSION['hero_hp'] = $currentHero-> getHealthPoint();
  
 $fightManager = new FightsManager;
 $currentMonster = $fightManager -> createMonster ();
+$_SESSION['monster_hp'] = $currentMonster-> getHealthPoint();
+
 
 
 $fightResults = $fightManager-> fight($currentHero, $currentMonster);
@@ -51,20 +55,27 @@ $heroesManager -> update($currentHero);
                         echo 'src="./img/tauren.png" alt="Tauren"';} ?> >
         
     </div>
+
+    <div>
+        <button id='launch_fight' class='btn btn-light col-5'> Launch Fight</button>
+        <button id='fight_back' class='btn btn-light col-5'>Next Move</button>
+    </div>
     <div class="mt-5 text-center w-50 row justify-content-center py-2" id="fight_sequence">
+        
         <?php for ($i= 0; $i<count($fightResults); $i +=1){?>
-                <p>
-                    <?php if($i%2 == 0 && $fightResults[$i] <= 30) {echo "<span class='fw-bold'>".$currentMonster-> getName()."</span> hits <span class='fw-bold'>". ucfirst($currentHero -> getName()). "</span> for ".$fightResults[$i]." Hp";
-                        } else if (($i%2 == 0 && $fightResults[$i]> 30)) {echo "<span class='fw-bold'>".$currentMonster-> getName()."</span> hits <span class='fw-bold'>".ucfirst($currentHero -> getName()). "</span> for <span class='crit'> ".$fightResults[$i]." (crit) </span> Hp";
-                        } else if($i%2 != 0 && $fightResults[$i] <= 30) {echo "<span class='fw-bold'>".ucfirst($currentHero -> getName())."</span> hits <span class='fw-bold'>". $currentMonster -> getName(). " </span> for ".$fightResults[$i]. " HP";
-                        } else {echo "<span class='fw-bold'>".ucfirst($currentHero -> getName())."</span> hits <span class='fw-bold'>". $currentMonster -> getName(). "</span> for <span class='crit'> ".$fightResults[$i]." (crit) </span> Hp";} 
+            
+            <p class="fight_element d-none">
+                    <?php if($i%2 == 0 && $fightResults[$i] <= 30) {echo "<span class='fw-bold'>".$currentMonster-> getName()."</span> hits <span class='fw-bold'>". ucfirst($currentHero -> getName()). "</span> for ".$fightResults[$i]." Hp <span>".$currentHero-> getName()."/100 HP</span>";
+                        } else if (($i%2 == 0 && $fightResults[$i]> 30)) {echo "<span class='fw-bold'>".$currentMonster-> getName()."</span> hits <span class='fw-bold'>".ucfirst($currentHero -> getName()). "</span> for <span class='crit'> ".$fightResults[$i]." (crit) </span> Hp <span>".$currentHero-> getName()."/100 HP</span>";
+                        } else if($i%2 != 0 && $fightResults[$i] <= 30) {echo "<span class='fw-bold'>".ucfirst($currentHero -> getName())."</span> hits <span class='fw-bold'>". $currentMonster -> getName(). " </span> for ".$fightResults[$i]. " HP <span>".$currentMonster-> getName()."/100 HP</span>";
+                        } else {echo "<span class='fw-bold'>".ucfirst($currentHero -> getName())."</span> hits <span class='fw-bold'>". $currentMonster -> getName(). "</span> for <span class='crit'> ".$fightResults[$i]." (crit) </span> Hp <span>".$currentMonster-> getName()."/100 HP</span>";} 
                     ?>
-                       
-            </p>
+                </p>
+
 
 
         <?php } ?>    
-                <p><?php if($currentHero-> getHealthPoint()<=0){ echo "<span class='fw-bold'>". ucfirst($currentHero -> getName())."</span> dies AH! AH! AH! AH! ";
+                <p class="fight_finish d-none"><?php if($currentHero-> getHealthPoint()<=0){ echo "<span class='fw-bold'>". ucfirst($currentHero -> getName())."</span> dies AH! AH! AH! AH! ";
                 }else{ echo "<span class='fw-bold'>" .$currentMonster->getName()."</span> dies. Congrats!!!!";} ?></p>
     </div>
 </section>
@@ -80,5 +91,6 @@ $heroesManager -> update($currentHero);
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="./js/main.js"></script>
 </body>
 </html>
