@@ -40,7 +40,10 @@ class HeroesManager{
 // Sélectionner un héros.
 
     public function find($id){
-        $request = $this->db->query("SELECT * FROM heroes WHERE heroes.id='$id' ");
+        $request = $this->db ->prepare("SELECT * FROM heroes WHERE heroes.id= :id"); // si on utlise une variable il vaut mieux passer 
+        $request->execute([                                                         //par un prepare/execute pour des quesiotns de securité
+                    'id' => $id
+                ]);
         $newHero = $request->fetch();
         // var_dump($newHero);
         $return_value = match ($newHero['class']){
