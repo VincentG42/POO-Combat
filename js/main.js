@@ -12,7 +12,6 @@ launchFight.addEventListener('click',() =>{
 let i=1;
 fightBack.addEventListener('click', () =>{
     if( i<fightElements.length){
-       
         fightElements[i-1].classList.add('d-none');
         fightElements[i].classList.remove('d-none');
         i+=1;
@@ -22,8 +21,6 @@ fightBack.addEventListener('click', () =>{
         fightEnd.classList.remove('d-none');
 
     }
-
-
     
 })
 
