@@ -15,9 +15,11 @@ class HeroesManager{
     public function update( Hero $hero){
     //    var_dump($hero);
         $request = $this->db->prepare("UPDATE heroes SET health_point = :health_point WHERE id = :id");
-        $request->execute(['id' => $hero-> getId(),
-                            'health_point' => $hero-> getHealthPoint()
-        ]);
+
+        $request->bindValue('id', $hero->getId(), PDO::PARAM_INT);
+        $request->bindValue('health_point',$hero-> getHealthPoint(), PDO::PARAM_INT);
+
+        $request->execute();
     
     }
 
@@ -29,10 +31,13 @@ class HeroesManager{
         $hero-> setHealthPoint(100);
         
         $request = $this->db->prepare("INSERT INTO heroes (name, health_point, class) VALUES (:name, :health_point, :class)");
-        $request->execute(['name' => $hero-> getname(),
-                            'health_point' => $hero-> getHealthPoint(),
-                            'class' => $hero ->getClass()
-        ]);
+
+        $request->bindValue('name', $hero->getName(), PDO::PARAM_STR);
+        $request->bindValue('health_point', $hero->getHealthPoint(),PDO::PARAM_INT);
+        $request ->bindValue('class', $hero->getClass(), PDO::PARAM_STR);
+
+
+        $request->execute();
         $id = $this->db->lastInsertId();
         $hero-> setID($id);
     }

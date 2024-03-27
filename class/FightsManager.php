@@ -22,9 +22,8 @@ class FightsManager{
             while (true){
                 
                 if ($i%2 == 0){
-                     $fightSequence[$i] =  $monster ->hit($hero);
+                    $fightSequence[$i] =  $monster ->hit($hero);
 
-                     
                     } else{
                         $fightSequence[$i] =  $hero ->hit($monster);
                     }
